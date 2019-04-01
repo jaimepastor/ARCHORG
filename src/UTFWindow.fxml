@@ -15,6 +15,7 @@
       <Label layoutX="314.0" layoutY="258.0" text="UTF-32" />
       <Label fx:id="lblUTF8" layoutX="333.0" layoutY="116.0" text="0x00000000" />
       <Label fx:id="lblUTF16" layoutX="333.0" layoutY="202.0" text="0x00000000" />
+      <Button fx:id="btnBack" layoutX="54.0" layoutY="281.0" mnemonicParsing="false" text="BACK" />
       <Label fx:id="lblUTF32" layoutX="333.0" layoutY="276.0" text="0x00000000" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="286.0" layoutY="35.0" text="UNICODEEEEEEEEEEEEEEE" textAlignment="CENTER" AnchorPane.bottomAnchor="325.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0">
          <font>

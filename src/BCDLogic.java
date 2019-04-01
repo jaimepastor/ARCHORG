@@ -1,16 +1,18 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
-
-import static java.lang.Integer.decode;
-import static java.lang.Integer.toBinaryString;
 
 public class BCDLogic {
     @FXML
-    private Button btnOK;
+    private Button btnOK, btnBack;
 
     @FXML
     private TextField txtFieldInput;
@@ -23,6 +25,20 @@ public class BCDLogic {
     private ArrayList<Character> aEI;
 
     public void initialize(){
+        btnBack.setOnMouseClicked(event -> {
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Stage MainStage = (Stage) btnBack.getScene().getWindow();
+            MainStage.setTitle("Main");
+            MainStage.setScene(new Scene(root, 600, 400));
+            MainStage.setResizable(false);
+            MainStage.show();
+        });
+
         btnOK.setOnMouseClicked(event -> {
             System.out.println(txtFieldInput.getText());
             String text = txtFieldInput.getText();
