@@ -42,24 +42,13 @@ public class UTFLogic {
     }
 
     public String convertUTF32(String toConvert){
-       
-        int temp = Integer.parseInt(toConvert, 16);
-        if(temp > 0x1FFFFF) {
-            return "TOO BIG!!";
-        }
-
+      
         int len = toConvert.length();
-        String answer = "";
-
-        if (len == 8) {
-            answer = toConvert;
-        }
-        else {
-            answer = ("00000000" + toConvert).substring(toConvert.length());
+        if(len > 8) {
+            return "Overload";
         }
 
-        return "0x" + answer.toUpperCase();
+        return "0x" + ("00000000" + toConvert).substring(toConvert.length()).toUpperCase();
 
-        }
     }
 }
