@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 
 public class UTFLogic {
@@ -38,6 +39,11 @@ public class UTFLogic {
     }
 
     public String convertUTF8(String toConvert) {
+        if (toConvert.length() > 8){
+            return "Number is too big!";
+        } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
+            return "invalid!";
+        }
         String answer;
         char[] answerarrray;
         int i, j, decimal;
@@ -148,6 +154,11 @@ public class UTFLogic {
     }
 
     public String convertUTF16(String toConvert){
+        if (toConvert.length() > 8){
+            return "Number is too big!";
+        } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
+            return "invalid!";
+        }
         String answer;
         int difference;
         char[] answerarrray = new char[24];
@@ -192,6 +203,12 @@ public class UTFLogic {
     }
 
     public String convertUTF32(String toConvert){
+        if (toConvert.length() > 8){
+            return "Number is too big!";
+        } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
+            return "invalid!";
+        }
+
         return "0x" + String.format("%08x", Integer.parseInt(toConvert, 16)).toUpperCase();
     }
 }
