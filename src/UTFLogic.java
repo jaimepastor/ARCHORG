@@ -35,7 +35,7 @@ public class UTFLogic {
             }
             Stage MainStage = (Stage) btnBack.getScene().getWindow();
             MainStage.setTitle("Main");
-            MainStage.setScene(new Scene(root, 600, 400));
+            MainStage.setScene(new Scene(root, 1000, 400));
             MainStage.setResizable(false);
             MainStage.show();
         });

@@ -21,7 +21,7 @@ public class MainLogic {
             }
             Stage UTFStage = (Stage) btnUTFConv.getScene().getWindow();
             UTFStage.setTitle("BCD Converter");
-            UTFStage.setScene(new Scene(root, 600, 400));
+            UTFStage.setScene(new Scene(root, 1000, 400));
             UTFStage.setResizable(false);
             UTFStage.show();
         });
@@ -35,7 +35,7 @@ public class MainLogic {
             }
             Stage BCDStage = (Stage) btnBCDConv.getScene().getWindow();
             BCDStage.setTitle("BCD Converter");
-            BCDStage.setScene(new Scene(root, 600, 400));
+            BCDStage.setScene(new Scene(root, 1000, 400));
             BCDStage.setResizable(false);
             BCDStage.show();
         });
