@@ -58,20 +58,21 @@ public class UTFLogic {
     }
 
     public String convertUTF8(String toConvert) {
-        if (toConvert.length() > 8){
-            return "Number is too big!";
-        } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
+        if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
             return "invalid!";
+        } else if (toConvert.length() > 8){
+            return "Number is too big!";
         }
         String answer;
         char[] answerarrray;
         int i, j, decimal;
-        int temp = Integer.parseInt(toConvert, 16);
+        Long tempX = Long.parseLong(toConvert, 16);
 
-        if(temp > 0x1FFFFF) {//UTF-8 is only capable of UNICODE input from 0 to 0x1FFFFF
+        if(tempX > 0x1FFFFF) {//UTF-8 is only capable of UNICODE input from 0 to 0x1FFFFF
             return "TOO BIG!!";
         }
 
+        int temp = Integer.parseInt(toConvert, 16);
         hexCharArray = Integer.toBinaryString(temp).toCharArray();
 
 //        System.out.println("testing1: " + new String(hexCharArray));
@@ -173,22 +174,24 @@ public class UTFLogic {
     }
 
     public String convertUTF16(String toConvert){
-        if (toConvert.length() > 8){
-            return "Number is too big!";
-        } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
+        if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
             return "invalid!";
+        } else if (toConvert.length() > 8){
+            return "Number is too big!";
         }
         String answer;
         int difference;
         char[] answerarrray = new char[24];
         int i, j, decimal;
-        int temp = Integer.parseInt(toConvert, 16);
+        Long tempX = Long.parseLong(toConvert, 16);
 
-        if(temp > 0x10FFFF) {//UTF-8 is only capable of UNICODE input from 0 to 0x1FFFFF
+        if(tempX > 0x10FFFF) {//UTF-8 is only capable of UNICODE input from 0 to 0x1FFFFF
             return "TOO BIG!!";
-        } else if (temp < 0x10000){
+        } else if (tempX < 0x10000){
             return "0x" + String.format("%04x", Integer.parseInt(toConvert, 16)).toUpperCase();
         }
+
+        int temp = Integer.parseInt(toConvert, 16);
         temp = temp - 0x10000;
         hexCharArray = Integer.toBinaryString(temp).toCharArray();
 
@@ -222,13 +225,18 @@ public class UTFLogic {
     }
 
     public String convertUTF32(String toConvert){
-        if (toConvert.length() > 8){
-            return "Number is too big!";
-        } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
+        if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
             return "invalid!";
+        } else if (toConvert.length() > 8){
+            return "Number is too big!";
         }
 
-        return "0x" + String.format("%08x", Integer.parseInt(toConvert, 16)).toUpperCase();
+        Long tempX = Long.parseLong(toConvert, 16);
 
+        if(tempX > 0x10FFFF) {//UTF-32 is only capable of UNICODE input from 0 to 0x1FFFFF
+            return "0x" + String.format("%08x", tempX).toUpperCase();
+        } else {
+            return "0x" + String.format("%08x", Integer.parseInt(toConvert, 16)).toUpperCase();
+        }
     }
 }
