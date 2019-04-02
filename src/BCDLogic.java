@@ -19,8 +19,8 @@ public class BCDLogic {
 
     @FXML
     private Label lblUBCD, lblPBCD, lblDPBCD;
-    private int dig1, dig2, dig3;
-    private String bin1, bin2, bin3;
+    private int dig1, dig2, dig3, size;
+    private String bin1, bin2, bin3, uBCD, pBCD, dPBCD;
     private char[] binaryArray;
     private ArrayList<Character> aEI;
 
@@ -40,15 +40,28 @@ public class BCDLogic {
         });
 
         btnOK.setOnMouseClicked(event -> {
+            dig1 = 0;
+            dig2 = 0;
+            dig3 = 0;
             System.out.println(txtFieldInput.getText());
             String text = txtFieldInput.getText();
-
-            if(text.isEmpty() /*|| !(text.contentEquals("%d%d%d"))*/){
+            size = text.length();
+            if(text.isEmpty()){
                 System.out.println("Error!");
                 lblUBCD.setText("ERROR");
                 lblPBCD.setText("ERROR");
                 lblDPBCD.setText("ERROR");
-            } else {
+            }
+            if(text.length()>3){
+                System.out.println("Error!");
+                lblUBCD.setText("Input 3 digits only please");
+                lblPBCD.setText("Input 3 digits only please");
+                lblDPBCD.setText("Input 3 digits only please");
+            }
+            else {
+                lblUBCD.setText("");
+                lblPBCD.setText("");
+                lblDPBCD.setText("");
                 lblUBCD.setText(convertUBCD(text));
                 lblPBCD.setText(convertPBCD(text));
                 lblDPBCD.setText(convertDPBCD(text));
@@ -58,21 +71,37 @@ public class BCDLogic {
     }
 
     public String convertUBCD(String toConvert){
-        dig1=Character.getNumericValue(toConvert.charAt(0));
-        dig2=Character.getNumericValue(toConvert.charAt(1));
-        dig3=Character.getNumericValue(toConvert.charAt(2));
-
+        if(toConvert.length() == 1) {
+            dig3 = Character.getNumericValue(toConvert.charAt(0));
+        }
+        else if (toConvert.length() == 2){
+            dig2 = Character.getNumericValue(toConvert.charAt(0));
+            dig3 = Character.getNumericValue(toConvert.charAt(1));
+        }
+        else if (toConvert.length() == 3){
+            dig1 = Character.getNumericValue(toConvert.charAt(0));
+            dig2 = Character.getNumericValue(toConvert.charAt(1));
+            dig3 = Character.getNumericValue(toConvert.charAt(2));
+        }
         bin1 = to8Binary(dig1);
         bin2 = to8Binary(dig2);
         bin3 = to8Binary(dig3);
-        String uBCD = bin1.concat(" ").concat(bin2).concat(" ").concat(bin3);
+        if (size == 3) {
+            uBCD = bin1.concat(" ").concat(bin2).concat(" ").concat(bin3);
+        }
+        else if (size == 2) {
+            uBCD = bin2.concat(" ").concat(bin3);
+        }
+        else if (size == 1) {
+            uBCD = bin3;
+        }
         return uBCD;
     }
 
     public String convertPBCD(String toConvert){
-        dig1=Character.getNumericValue(toConvert.charAt(0));
-        dig2=Character.getNumericValue(toConvert.charAt(1));
-        dig3=Character.getNumericValue(toConvert.charAt(2));
+//        dig1=Character.getNumericValue(toConvert.charAt(0));
+//        dig2=Character.getNumericValue(toConvert.charAt(1));
+//        dig3=Character.getNumericValue(toConvert.charAt(2));
 
         bin1 = to4Binary(dig1);
         System.out.println(bin1);
@@ -81,7 +110,7 @@ public class BCDLogic {
         bin3 = to4Binary(dig3);
         System.out.println(bin3);
 
-        String pBCD = bin1.concat(" ").concat(bin2).concat(" ").concat(bin3);
+        pBCD = bin1.concat(" ").concat(bin2).concat(" ").concat(bin3);
         binaryArray = pBCD.toCharArray();
         return pBCD;
     }
@@ -91,7 +120,7 @@ public class BCDLogic {
         ArrayList<Character> dPBCDList = new ArrayList<>();
         ArrayList<Character> binaryString =  new ArrayList<>();
         binaryString = arrayFunc(binaryArray);
-        String dPBCD, aEIString;
+        String aEIString;
         aEI.add(binaryString.get(0));
         aEI.add(binaryString.get(4));
         aEI.add(binaryString.get(8));
@@ -237,7 +266,12 @@ public class BCDLogic {
             }
         }
         StringBuilder string = new StringBuilder();
+        int y=0;
         for(z=0;z<dPBCDList.size();z++){
+            y++;
+            if(z%3==0 && z>0 && y<8){
+                string.append(" ");
+            }
             string.append(dPBCDList.get(z));
         }
         dPBCD=string.toString();

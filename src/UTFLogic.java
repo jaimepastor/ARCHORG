@@ -222,7 +222,6 @@ public class UTFLogic {
     }
 
     public String convertUTF32(String toConvert){
-<<<<<<< HEAD
         if (toConvert.length() > 8){
             return "Number is too big!";
         } else if (!Pattern.matches("^[a-fA-F0-9]+$", toConvert)){
@@ -230,15 +229,6 @@ public class UTFLogic {
         }
 
         return "0x" + String.format("%08x", Integer.parseInt(toConvert, 16)).toUpperCase();
-=======
-      
-        int len = toConvert.length();
-        if(len > 8) {
-            return "Overload";
-        }
 
-        return "0x" + ("00000000" + toConvert).substring(toConvert.length()).toUpperCase();
-
->>>>>>> 46f268c79cc80d0b3131e6ad9f51c305036ca844
     }
 }
