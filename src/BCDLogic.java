@@ -24,6 +24,8 @@ public class BCDLogic {
     private char[] binaryArray;
     private ArrayList<Character> aEI;
     private ArrayList<String> convertList;
+    private ArrayList<Integer> numbers;
+    private ArrayList<String> bin;
     public void initialize(){
         btnBack.setOnMouseClicked(event -> {
             Parent root = null;
@@ -71,50 +73,12 @@ public class BCDLogic {
     }
 
     public String convertUBCD(String toConvert){
-        ArrayList<Integer> numbers = new ArrayList<>();
-        ArrayList<String> bin = new ArrayList<>();
+        numbers = new ArrayList<>();
+        bin = new ArrayList<>();
         for(int i = 0; i<toConvert.length(); i++){
             numbers.add(Integer.parseInt(String.valueOf(toConvert.charAt(i))));
-//            System.out.println(numbers.get(i));
         }
-//        char [] convertThis = toConvert.toCharArray();
-//        if(toConvert.length() == 1) {
-//            dig3 = Character.getNumericValue(toConvert.charAt(0));
-//        }
-//        else if (toConvert.length() == 2){
-//            dig2 = Character.getNumericValue(toConvert.charAt(0));
-//            dig3 = Character.getNumericValue(toConvert.charAt(1));
-//        }
-//        else if (toConvert.length() == 3){
-//            dig1 = Character.getNumericValue(toConvert.charAt(0));
-//            dig2 = Character.getNumericValue(toConvert.charAt(1));
-//            dig3 = Character.getNumericValue(toConvert.charAt(2));
-//        }
-//        bin1 = to8Binary(dig1);
-//        bin2 = to8Binary(dig2);
-//        bin3 = to8Binary(dig3);
-//        if (size == 3) {
-//            uBCD = bin1.concat(" ").concat(bin2).concat(" ").concat(bin3);
-//        }
-//        else if (size == 2) {
-//            uBCD = bin2.concat(" ").concat(bin3);
-//        }
-//        else if (size == 1) {
-//            uBCD = bin3;
-//        }
-//        return uBCD;
-//        int i =0;
-//        System.out.println(convertThis[0]);
-//        uBCD = "";
-//        for(int i = 0; i<convertThis.length; i++){
-//            System.out.println(to8Binary(convertThis[i]));
-//
-//            uBCD.concat(to8Binary(Integer.parseInt(String.valueOf(convertThis[i]))));
-//
-//            convertList.add(to8Binary(Integer.parseInt(String.valueOf(convertThis[i]))));
-//            uBCD.concat(convertList.get(i));
-//        }
-        uBCD = "";
+
         for(int i =0; i<numbers.size(); i++){
             bin.add(to8Binary(numbers.get(i)));
         }
@@ -127,19 +91,21 @@ public class BCDLogic {
     }
 
     public String convertPBCD(String toConvert){
-//        dig1=Character.getNumericValue(toConvert.charAt(0));
-//        dig2=Character.getNumericValue(toConvert.charAt(1));
-//        dig3=Character.getNumericValue(toConvert.charAt(2));
+        numbers = new ArrayList<>();
+        bin = new ArrayList<>();
+        for(int i = 0; i<toConvert.length(); i++){
+            numbers.add(Integer.parseInt(String.valueOf(toConvert.charAt(i))));
+        }
 
-        bin1 = to4Binary(dig1);
-        System.out.println(bin1);
-        bin2 = to4Binary(dig2);
-        System.out.println(bin2);
-        bin3 = to4Binary(dig3);
-        System.out.println(bin3);
+        for(int i =0; i<numbers.size(); i++){
+            bin.add(to8Binary(numbers.get(i)));
+        }
 
-        pBCD = bin1.concat(" ").concat(bin2).concat(" ").concat(bin3);
-        binaryArray = pBCD.toCharArray();
+        StringBuilder answer = new StringBuilder();
+        for(String a : bin)
+            answer.append(a);
+
+        pBCD = answer.toString();
         return pBCD;
     }
 
